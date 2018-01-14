@@ -1,0 +1,2 @@
+serviceClass: de.hdm.GWT_GUI.client.BlogeintragService
+path: 0910F87BEA63993FCC4A6879B9365365.gwt.rpc

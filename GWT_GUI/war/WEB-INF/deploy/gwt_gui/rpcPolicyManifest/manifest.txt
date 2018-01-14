@@ -1,0 +1,3 @@
+# Module gwt_gui
+# RPC service class, partial path of RPC policy file
+de.hdm.GWT_GUI.client.BlogeintragService, 0910F87BEA63993FCC4A6879B9365365.gwt.rpc
