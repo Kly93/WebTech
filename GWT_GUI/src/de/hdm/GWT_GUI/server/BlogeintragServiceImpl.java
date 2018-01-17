@@ -18,18 +18,19 @@ public class BlogeintragServiceImpl extends RemoteServiceServlet implements Blog
 			throw new IllegalArgumentException("Name must be at least 4 characters long for the Title");
 		}
 		
-		 if (!FieldVerifier.isValidSubtitle(subtitleInput)) {
+		else if (!FieldVerifier.isValidSubtitle(subtitleInput)) {
 				// If the input is not valid, throw an IllegalArgumentException back to
 				// the client.
 				throw new IllegalArgumentException("Name must be at least 4 characters long for the Subtitle");
 			}
 		
-		if (!FieldVerifier.isValidText(textInput)) {
+		else if (!FieldVerifier.isValidText(textInput)) {
 				// If the input is not valid, throw an IllegalArgumentException back to
 				// the client.
 				throw new IllegalArgumentException("Name must be at least 4 characters long for the Text");
 			} 
 
+		// Empfangen der Server Info aus AsynCallback??
 		String serverInfo = getServletContext().getServerInfo();
 		String userAgent = getThreadLocalRequest().getHeader("User-Agent");
 

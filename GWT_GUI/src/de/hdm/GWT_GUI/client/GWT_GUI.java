@@ -30,6 +30,7 @@ public class GWT_GUI implements EntryPoint {
 
 	/**
 	 * Create a remote service proxy to talk to the server-side Blogeintrag service.
+	 * Auslösen des HTTP Request zu Server
 	 */
 	private final BlogeintragServiceAsync blogService = GWT.create(BlogeintragService.class);
 	
@@ -40,28 +41,44 @@ public class GWT_GUI implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
+		final VerticalPanel mainPanel = new VerticalPanel();
 		final Button sendButton = new Button("Eingaben speichern");
 		final Label blogeintragCounter = new Label("Blogeintrag Nr. " + blogeintragCount + " anlegen");
+		final Label titleLabel = new Label("Titel");
+		final Label subtitleLabel = new Label("Untertitel");
+		final Label textLabel = new Label("Text");
 		final TextBox titleField = new TextBox();
 		titleField.setText("Beispiel Titel");
 		final TextBox subtitleField = new TextBox();
 		subtitleField.setText("Beispiel Subtitel");
 		final TextBox textField = new TextBox();
 		textField.setText("Beispiel Text");
-		final Label errorLabel = new Label();
+		final Label errorLabelTitle = new Label();
+		final Label errorLabelSubtitle = new Label();
+		final Label errorLabelText = new Label();
 
 		// We can add style names to widgets
 		sendButton.addStyleName("sendButton");
 
+		mainPanel.add(titleLabel);
+		mainPanel.add(subtitleLabel);
+		mainPanel.add(textLabel);
+		mainPanel.add(sendButton);
+		mainPanel.add(blogeintragCounter);
+		mainPanel.add(titleField);
+		mainPanel.add(subtitleField);
+		mainPanel.add(textField);
+		mainPanel.add(errorLabelTitle);
+		mainPanel.add(errorLabelSubtitle);
+		mainPanel.add(errorLabelText);
+		
+		
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
 		// Referenziert auf id in Host Page!
-		RootPanel.get("blogeintragTitleContainer").add(blogeintragCounter);
-		RootPanel.get("titleFieldContainer").add(titleField);
-		RootPanel.get("subtitleFieldContainer").add(subtitleField);
-		RootPanel.get("textFieldContainer").add(textField);
-		RootPanel.get("sendButtonContainer").add(sendButton);
-		RootPanel.get("errorLabelContainer").add(errorLabel);
+		// GWT Widget (Bspw. FlexTable, Grid) hier bauen!
+		RootPanel.get("Blogeintrag").add(mainPanel);
+		
 
 		// Focus the cursor on the name field when the app loads
 		titleField.setFocus(true);
@@ -130,22 +147,24 @@ public class GWT_GUI implements EntryPoint {
 			 */
 			private void sendContentToServer() {
 				// First, we validate the input.
-				errorLabel.setText("");
+				errorLabelTitle.setText("");
+				errorLabelSubtitle.setText("");
+				errorLabelText.setText("");
 				String titleToServer = titleField.getText();
 				String subtitleToServer = subtitleField.getText();
 				String textToServer = textField.getText();
 				if (!FieldVerifier.isValidTitle(titleToServer)) {
-					errorLabel.setText("Please enter at least four characters for the Title");
+					errorLabelTitle.setText("Please enter at least four characters for the Title");
 					return;
 				}
 				
 				if (!FieldVerifier.isValidSubtitle(subtitleToServer)) {
-					errorLabel.setText("Please enter at least four characters for the Subtitle");
+					errorLabelSubtitle.setText("Please enter at least four characters for the Subtitle");
 					return;
 				}
 				
 				if (!FieldVerifier.isValidText(textToServer)) {
-					errorLabel.setText("Please enter at least four characters for the Text");
+					errorLabelText.setText("Please enter at least four characters for the Text");
 					return;
 				} 
 
@@ -164,7 +183,7 @@ public class GWT_GUI implements EntryPoint {
 						dialogBox.center();
 						closeButton.setFocus(true);
 					}
-
+					// Inhalt von Server!!
 					public void onSuccess(String result) {
 						dialogBox.setText("Neuer Blogeintrag: ");
 						serverResponseLabel.removeStyleName("serverResponseLabelError");

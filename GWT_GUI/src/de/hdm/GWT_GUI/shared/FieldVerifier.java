@@ -41,7 +41,7 @@ public class FieldVerifier {
 	}
 	
 	 public static boolean isValidSubtitle(String subtitle) {
-		if (subtitle == null) {
+	    if (subtitle == null) {
 			return false;
 		}
 		return subtitle.length() > 3;

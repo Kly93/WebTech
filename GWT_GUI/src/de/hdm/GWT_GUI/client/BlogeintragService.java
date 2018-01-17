@@ -8,5 +8,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("blogServlet")
 public interface BlogeintragService extends RemoteService {
+	// Antwort von Server in Variable speichern
 	String blogServer(String titleInput, String subtitleInput, String textInput) throws IllegalArgumentException;
 }
